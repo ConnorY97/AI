@@ -2,6 +2,7 @@
 #include "Node.h"
 #include <iostream>
 #include <limits>
+#include "Map.h"
 
 
 
@@ -10,6 +11,8 @@ Grid::Grid(int width, int height)
 {
 	m_nWidth = width;
 	m_nHeight = height; 
+
+	Map arrMap;
 
 	m_bDrawLines = true;
 	m_bDrawGrid = true; 
@@ -30,7 +33,9 @@ Grid::Grid(int width, int height)
 			Vector2 pos;
 			pos.x = x * SQUARE_SIZE + GRID_POSX;
 			pos.y = y * SQUARE_SIZE + GRID_POSY;
-			m_arrNodeList[x][y] = new Node(pos, x, y); 
+			m_arrNodeList[x][y] = new Node(pos, x, y);
+			if (arrMap.m_arrMap[x][y] == 1)
+				m_arrNodeList[x][y]->m_bBlocked = true; 
 		}
 	}
 

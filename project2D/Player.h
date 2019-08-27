@@ -7,6 +7,7 @@
 #include <vector>
 #include "Matrix3.h"
 #include "StateMachine.h"
+#include "Map.h"
 
 
 class Guards
@@ -45,6 +46,7 @@ struct States
 	static State<Guards>* SearchState; 
 	static State<Guards>* WaitState; 
 	static State<Guards>* WalkState;
+	static State<Guards>* PatrolState;
 
 };
 
@@ -76,7 +78,7 @@ struct Wait : public State<Guards>
 	{
 		fTimer += deltaTime; 
 
-		if (fTimer >= 5)
+		if (fTimer >= 2)
 		{
 			fTimer = 0; 
 			smGuard->SetState(States::SearchState);
@@ -95,10 +97,43 @@ struct Search : public State<Guards>
 
 		if (guards->m_pGrid->FindPath(guards->m_v2CurrentPos, guards->m_v2End, guards->m_arrPath))
 			smGuard->SetState(States::WalkState);
-			
 	}
+};
+
+struct Patrol : public State<Guards>
+{
+	int nCurrentPoint = 0;
+	std::vector<Vector2> arrPatrolPoints; 
+	Map arrMap;
+
+	void update(float deltaTime, Guards* guards, StateMachine<Guards>* smGuard)
+	{
+
+		
+		/*Vector2 v2Patrol1;
+		Vector2 v2Patrol2;
+		Vector2 v2Patrol3;
+		Vector2 v2Patrol4;
+
+		v2Patrol1.x = arrMap.m_arrMap[2][2];
+		v2Patrol1.y = arrMap.m_arrMap[2][2];
+
+		v2Patrol2.x = arrMap.m_arrMap[7][7];
+		v2Patrol2.y = arrMap.m_arrMap[2][2];
+
+		v2Patrol3.x = arrMap.m_arrMap[7][7];
+		v2Patrol3.y = arrMap.m_arrMap[7][7];
+
+		v2Patrol4.x = arrMap.m_arrMap[2][2];
+		v2Patrol4.y = arrMap.m_arrMap[7][7];*/
+
+		//Node* nPos = guards->m_pGrid->GetNodeByPos(v2Patrol1);
+
+		//if (nPos)
+		//	guards->m_v2End = nPos->m_v2Position;
 
 
+	}
 };
 
 

@@ -10,8 +10,8 @@
 #define GRID_POSY 10
 
 
-#define GRID_SIZE_X 25
-#define GRID_SIZE_Y 25
+#define GRID_SIZE_X 10
+#define GRID_SIZE_Y 10
 class Node; 
 
 class Grid
@@ -46,7 +46,7 @@ private:
 
 	//Vector2 m_v2Position; 
 
-
+	
 
 	PathHeap m_phOpenList;
 	bool* m_barrClosedList;

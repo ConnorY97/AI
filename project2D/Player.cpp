@@ -6,6 +6,7 @@
 State<Guards>* States::WalkState = new Walk();
 State<Guards>* States::WaitState = new Wait();
 State<Guards>* States::SearchState = new Search();
+State<Guards>* States::PatrolState = new Patrol();
 
 
 Guards::Guards(Grid* pGrid) : m_StateMachine(this)
