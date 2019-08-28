@@ -10,6 +10,7 @@
 #include "Map.h"
 
 
+
 class Guards
 {
 public:
@@ -57,7 +58,7 @@ struct Walk : public State<Guards>
 	{
 		if (guards->m_arrPath.size() < 2)
 		{
-			smGuard->SetState(States::WaitState); 
+			smGuard->SetState(States::PatrolState); 
 			return; 
 		}
 		
@@ -81,7 +82,7 @@ struct Wait : public State<Guards>
 		if (fTimer >= 2)
 		{
 			fTimer = 0; 
-			smGuard->SetState(States::SearchState);
+			smGuard->SetState(States::PatrolState);
 		}
 	}
 };
@@ -102,37 +103,81 @@ struct Search : public State<Guards>
 
 struct Patrol : public State<Guards>
 {
-	int nCurrentPoint = 0;
-	std::vector<Vector2> arrPatrolPoints; 
+	int nPatrolPointIndex = 0;
+	Vector2 arrPatrolPoints[4];
 	Map arrMap;
+	
+	
+	Vector2 v2Patrol1;
+	Vector2 v2Patrol2;
+	Vector2 v2Patrol3;
+	Vector2 v2Patrol4;
 
-	void update(float deltaTime, Guards* guards, StateMachine<Guards>* smGuard)
+	void init(Guards* guards)
 	{
+		float a = guards->m_fSpeed;
 
+		/*v2Patrol1.x = arrMap.m_arrMap[2][2]; 
+		v2Patrol1.y = arrMap.m_arrMap[2][2]; 
 		
-		/*Vector2 v2Patrol1;
-		Vector2 v2Patrol2;
-		Vector2 v2Patrol3;
-		Vector2 v2Patrol4;
-
-		v2Patrol1.x = arrMap.m_arrMap[2][2];
-		v2Patrol1.y = arrMap.m_arrMap[2][2];
-
 		v2Patrol2.x = arrMap.m_arrMap[7][7];
 		v2Patrol2.y = arrMap.m_arrMap[2][2];
-
+		
 		v2Patrol3.x = arrMap.m_arrMap[7][7];
 		v2Patrol3.y = arrMap.m_arrMap[7][7];
-
+		
 		v2Patrol4.x = arrMap.m_arrMap[2][2];
-		v2Patrol4.y = arrMap.m_arrMap[7][7];*/
-
-		//Node* nPos = guards->m_pGrid->GetNodeByPos(v2Patrol1);
-
-		//if (nPos)
-		//	guards->m_v2End = nPos->m_v2Position;
+		v2Patrol4.y = arrMap.m_arrMap[7][7]; */
 
 
+		arrPatrolPoints[0] = v2Patrol1;
+		arrPatrolPoints[1] = v2Patrol2;
+		arrPatrolPoints[2] = v2Patrol3;
+		arrPatrolPoints[3] = v2Patrol4;
+
+
+		for (int x = 0; x < guards->m_pGrid->m_nWidth; x++)
+		{
+			for (int y = 0; y < guards->m_pGrid->m_nHeight; y++)
+			{
+				if (arrMap.m_arrMap[x][y] == 2)
+				{
+					Vector2 v2pos;
+					v2pos.x = x * SQUARE_SIZE + GRID_POSX;
+					v2pos.y = y * SQUARE_SIZE + GRID_POSY; 
+		
+					//arrPatrolPoints[nPatrolPointIndex] = v2pos; 
+		
+					//nPatrolPointIndex++; 
+				}
+			}
+		}
+	}
+	
+	void update(float deltaTime, Guards* guards, StateMachine<Guards>* smGuard)
+	{
+		Node* pTargetNode = guards->m_pGrid->GetNodeByPos(arrPatrolPoints[nPatrolPointIndex]); 
+		Node* pCurrentNode = guards->m_pGrid->GetNodeByPos(guards->m_v2CurrentPos); 
+
+		std::cout << nPatrolPointIndex <<  " " << arrPatrolPoints[nPatrolPointIndex].x << " " << arrPatrolPoints[nPatrolPointIndex].y << std::endl; 
+
+		guards->m_v2End = pTargetNode->m_v2Position; 
+
+		if (pTargetNode == pCurrentNode)
+		{
+			nPatrolPointIndex++; 
+
+			if (nPatrolPointIndex > 3)
+				nPatrolPointIndex = 0;
+		}
+
+
+		smGuard->SetState(States::WalkState); 
+
+	}
+
+	void exit()
+	{
 	}
 };
 

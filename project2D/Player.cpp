@@ -6,12 +6,12 @@
 State<Guards>* States::WalkState = new Walk();
 State<Guards>* States::WaitState = new Wait();
 State<Guards>* States::SearchState = new Search();
-State<Guards>* States::PatrolState = new Patrol();
+State<Guards>* States::PatrolState = new Patrol(); 
 
 
 Guards::Guards(Grid* pGrid) : m_StateMachine(this)
 {
-	m_StateMachine.SetState(States::SearchState);
+	m_StateMachine.SetState(States::PatrolState);
 
 	// Load the player's sprite.
 	m_texture = new aie::Texture("./textures/ship.png");
@@ -21,7 +21,9 @@ Guards::Guards(Grid* pGrid) : m_StateMachine(this)
 	m_bDrawCirle = false; 
 
 	m_fSpeed = 100.0f; 
-		
+
+
+	//States::PatrolState->init(this); 
 }
 
 Guards::~Guards()
@@ -30,7 +32,7 @@ Guards::~Guards()
 	delete m_texture;
 	m_texture = nullptr;
 
-	
+	//States::PatrolState->exit(this); 
 }
 
 void Guards::Update(float deltaTime)
@@ -56,7 +58,7 @@ void Guards::Update(float deltaTime)
 	
 	m_pGrid->FindPath(m_v2CurrentPos, m_v2End, m_arrPath); 
 
-	std::cout << m_arrPath.size() << std::endl;
+	//std::cout << m_arrPath.size() << std::endl;
 }
 
 void Guards::Draw(aie::Renderer2D* renderer)

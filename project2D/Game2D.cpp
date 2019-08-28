@@ -26,7 +26,7 @@ Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game
 	// Create a player object.
 	m_Player1 = new Guards(m_pGrid);
 
-	m_Player2 = new Guards(m_pGrid); 
+	//m_Player2 = new Guards(m_pGrid); 
 }
 
 Game2D::~Game2D()
@@ -34,6 +34,7 @@ Game2D::~Game2D()
 	delete States::SearchState;
 	delete States::WaitState;
 	delete States::WalkState;
+	delete States::PatrolState; 
 
 	StateManager::Destroy(); 
 
@@ -41,8 +42,8 @@ Game2D::~Game2D()
 	delete m_Player1;
 	m_Player1 = nullptr;
 
-	delete m_Player2;
-	m_Player2 = nullptr; 
+	//delete m_Player2;
+	//m_Player2 = nullptr; 
 
 	// Deleted the textures.
 	delete m_font;
@@ -64,7 +65,7 @@ void Game2D::Update(float deltaTime)
 	// Update the player.
 	m_Player1->Update(deltaTime);
 
-	m_Player2->Update(deltaTime); 
+	//m_Player2->Update(deltaTime); 
 	// Input example: Update the camera position using the arrow keys.
 	aie::Input* input = aie::Input::GetInstance();
 	//float camPosX;
@@ -142,7 +143,7 @@ void Game2D::Draw()
 	// Draw the player.
 	m_Player1->Draw(m_2dRenderer);
 
-	m_Player2->Draw(m_2dRenderer); 
+	//m_Player2->Draw(m_2dRenderer); 
 	
 	
 	// Draw some text.
