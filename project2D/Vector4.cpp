@@ -1,6 +1,7 @@
 #include "Vector4.h"
 #include <math.h>
 #include <cassert>
+#include <yvals.h>
 
 
 Vector4::Vector4()
@@ -59,7 +60,7 @@ float Vector4::dot(const Vector4& rhs)
 	return (x * rhs.x) + (y * rhs.y) + (z * rhs.z);
 }
 
-//Operators 
+//Operators
 Vector4 Vector4::operator+(const Vector4& rhs)
 {
 	return Vector4(x + rhs.x, y + rhs.y, z + rhs.z, w + rhs.w);
@@ -81,7 +82,7 @@ Vector4 Vector4::operator/(const float rhs)
 	return Vector4(x / rhs, y / rhs, z / rhs, w / rhs);
 }
 
-//Equals operators 
+//Equals operators
 Vector4 Vector4::operator+=(const Vector4& rhs)
 {
 	x += rhs.x;

@@ -24,7 +24,7 @@ Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game
 	srand(time(0));
 
 	// Create a player object.
-	m_Player1 = new Guards(m_pGrid);
+	//m_Player1 = new Guards(m_pGrid);
 
 	//m_Player2 = new Guards(m_pGrid); 
 }
@@ -61,9 +61,9 @@ Game2D::~Game2D()
 
 void Game2D::Update(float deltaTime)
 {
-	StateManager::Update(deltaTime); 
+	//StateManager::Update(deltaTime); 
 	// Update the player.
-	m_Player1->Update(deltaTime);
+	//m_Player1->Update(deltaTime);
 
 	//m_Player2->Update(deltaTime); 
 	// Input example: Update the camera position using the arrow keys.
@@ -141,7 +141,7 @@ void Game2D::Draw()
 	m_pGrid->Draw(m_2dRenderer); 
 
 	// Draw the player.
-	m_Player1->Draw(m_2dRenderer);
+	//m_Player1->Draw(m_2dRenderer);
 
 	//m_Player2->Draw(m_2dRenderer); 
 	

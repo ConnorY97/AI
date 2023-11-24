@@ -1,6 +1,7 @@
 #include "Vector3.h"
 #include <math.h>
 #include <cassert>
+#include <yvals.h>
 
 
 Vector3::Vector3()
